@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>SI BELPA NGAPAIN WOI 😹 😹</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(180deg, #0a0014, #1b0033);
+    color: white;
+}
+
+/* LOGIN */
+#loginPage {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #0a0014;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.login-box {
+    background: #1b0033;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+}
+
+.login-box input {
+    display: block;
+    width: 200px;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+.login-box button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background: #7a2cff;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-box button:hover {
+    background: #9a5cff;
+}
+
+/* CONTAINER */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* CARD */
+.card {
+    background: #0f0f0f;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(128, 0, 255, 0.2);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(128, 0, 255, 0.5);
+}
+
+/* LOGO */
+.logo {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 10px;
+    display: block;
+}
+
+/* TITLE */
+.menu-title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* BUTTON */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    background: #7a2cff;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn:hover {
+    background: #9a5cff;
+    transform: scale(1.05);
+}
+
+.btn:active {
+    transform: scale(0.96);
+    background: #5a1bcc;
+}
+
+.btn:focus {
+    box-shadow: 0 0 0 2px rgba(122, 44, 255, 0.5);
+}
+
+/* KODE */
+pre {
+    margin-top: 15px;
+    background: #16002a;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    color: #d6b8ff;
+    overflow-x: auto;
+
+    max-height: 0;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+pre.show {
+    max-height: 500px;
+    opacity: 1;
+}
+
+/* ANIMASI */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginPage">
+    <div class="login-box">
+        <h2>Login Dulu WOI 😹</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Masuk</button>
+        <p id="error" style="color:red;"></p>
+    </div>
+</div>
+
+<!-- KONTEN -->
+<div class="container">
+
+<div class="card">
+    <img src="wkwk.png" class="logo">
+    <div class="menu-title">PMM</div>
+    <button class="btn" onclick="toggleKode('pesan1', kodePMM)">ngisor</button>
+    <pre id="pesan1"></pre>
+</div>
+
+<div class="card">
+    <img src="se2.png" class="logo">
+    <div class="menu-title">SERVO PANTEKK</div>
+    <button class="btn" onclick="toggleKode('pesan2', kode2)">ngisor</button>
+    <pre id="pesan2"></pre>
+</div>
+
+</div>
+
+<script>
+function login() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    if (user === "AMBATUKAM" && pass === "KAKANGKU") {
+        sessionStorage.setItem("login", "true");
+        document.getElementById("loginPage").style.display = "none";
+    } else {
+        document.getElementById("error").textContent = "Salah cok";
+    }
+}
+
+if (sessionStorage.getItem("login") === "true") {
+    document.getElementById("loginPage").style.display = "none";
+}
+
+const kodePMM = `#include <ThreeWire.h>
+#include <RtcDS1302.h>
+#include <TM1637Display.h>
+
+#define CLK 2
+#define DIO 3
+TM1637Display display(CLK, DIO);
+
+ThreeWire myWire(7, 6, 8);
+RtcDS1302<ThreeWire> Rtc(myWire);
+
+void setup() {
+  display.setBrightness(0x0f);
+  Rtc.Begin();
+}
+
+void loop() {
+  RtcDateTime now = Rtc.GetDateTime();
+  int jamMenit = (now.Hour() * 100) + now.Minute();
+  static bool showColon = true;
+
+  display.showNumberDecEx(
+    jamMenit,
+    showColon ? 0x40 : 0x00,
+    true
+  );
+
+  showColon = !showColon;
+  delay(1000);
+}`;
+
+const kode2 = `#include <Servo.h>
+
+Servo servol;
+
+#define switchl 3
+#define switch2 4
+
+const int led = 1;
+const int ledd = 2;
+
+void setup() {
+  pinMode(switchl, INPUT_PULLUP);
+  pinMode(switch2, INPUT_PULLUP);
+
+  pinMode(led, OUTPUT);
+  pinMode(ledd, OUTPUT);
+
+  servol.attach(7);
+  servol.write(90);
+}
+
+void loop() {
+
+  if (digitalRead(switchl) == LOW) {
+    digitalWrite(led, HIGH);
+
+    servol.write(90);
+    delay(1000);
+    servol.write(180);
+    delay(1000);
+    servol.write(90);
+    delay(1000);
+
+    digitalWrite(led, LOW);
+    delay(1000);
+  }
+
+  else if (digitalRead(switch2) == LOW) {
+    digitalWrite(ledd, HIGH);
+
+    servol.write(90);
+    delay(1000);
+    servol.write(0);
+    delay(1000);
+    servol.write(90);
+    delay(1000);
+
+    digitalWrite(ledd, LOW);
+    delay(1000);
+  }
+}
+`;
+
+function toggleKode(id, kode) {
+    const el = document.getElementById(id);
+
+    if (el.classList.contains("show")) {
+        el.classList.remove("show");
+    } else {
+        el.textContent = kode;
+        el.classList.add("show");
+    }
+}
+</script>
+
+</body>
+</html>
